@@ -4,9 +4,11 @@
 #include "BBV.h"
 #include "boolinterval.h"
 #include "boolequation.h"
+#include "Allocator.h"
 
 class NodeBoolTree
 {
+    DECLARE_ALLOCATOR
 public:
     NodeBoolTree(BoolEquation *equation){this->eq = equation;}
     NodeBoolTree(const NodeBoolTree &node){
@@ -18,5 +20,7 @@ public:
 
 	BoolEquation *eq;
 };
+
+IMPLEMENT_ALLOCATOR(NodeBoolTree, 0, 0)
 
 #endif // NODEBOOLTREE_H
