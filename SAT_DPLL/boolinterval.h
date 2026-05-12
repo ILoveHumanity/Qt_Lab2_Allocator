@@ -2,11 +2,9 @@
 #define BOOLINTERVAL_H
 
 #include "BBV.h"
-#include "Allocator.h"
 
 class BoolInterval
 {
-    DECLARE_ALLOCATOR
 public:
 	BBV vec;
 	BBV dnc;

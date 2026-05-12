@@ -35,8 +35,3 @@ HEADERS += \
 
 INCLUDEPATH += \
     H:\Documents\QtApp\Qt_lab2\Allocator
-
-
-LIBS += \
-    -LH:\Documents\QtApp\Qt_lab2\Allocator -LAllocator
-
