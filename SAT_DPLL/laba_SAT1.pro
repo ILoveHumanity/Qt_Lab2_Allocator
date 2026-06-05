@@ -15,10 +15,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        BBV.cpp \
-        boolequation.cpp \
-        boolinterval.cpp \
-        main.cpp
+    ../Allocator/Allocator.cpp \
+    BBV.cpp \
+    FirstBranchingStrategy.cpp \
+    MinUnspecifiedBranchingStrategy.cpp \
+    boolequation.cpp \
+    boolinterval.cpp \
+    main.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -26,7 +29,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    ../Allocator/Allocator.h \
+    ../Allocator/DataTypes.h \
     BBV.h \
+    BranchingStrategy.h \
+    FirstBranchingStrategy.h \
+    MinUnspecifiedBranchingStrategy.h \
     NodeBoolTree.h \
     boolequation.h \
     boolinterval.h
@@ -34,4 +42,4 @@ HEADERS += \
 
 
 INCLUDEPATH += \
-    H:\Documents\QtApp\Qt_lab2\Allocator
+    ..\Allocator

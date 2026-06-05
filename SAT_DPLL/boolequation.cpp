@@ -31,6 +31,7 @@ BoolEquation::BoolEquation(BoolEquation &equation)
 	this->cnfSize = equation.cnfSize;
 	this->count = equation.count;
 	this->mask = equation.mask;
+    this->branchingStrategy = equation.branchingStrategy;
 }
 
 // Проверка правил
@@ -221,42 +222,17 @@ void BoolEquation::Simplify(int ixCol, char value)
 
 int BoolEquation::ChooseColForBranching()
 {
-	vector<int> indexes;
-	vector<int> values;
-	bool rezInit = false;
+    if(branchingStrategy) {
+        return branchingStrategy->ChooseColForBranching(*this);
+    }
+    return -1;
+}
 
-	for (int i = 0; i < mask.getSize(); i++) {
-		if (mask[i] == 0) {
-			indexes.push_back(i);
-		}
-	}
-
-	for (int i = 0; i < cnfSize; i++) {
-		BoolInterval *interval = cnf[i];
-
-		if (interval != nullptr) {
-			if (!rezInit) {
-				for (int k = 0; k < indexes.size(); k++) {
-					if (interval->getValue(indexes.at(k)) == '-') {
-						values.push_back(1);
-					} else {
-						values.push_back(0);
-					}
-				}
-
-				rezInit = true;
-			} else {
-				for (int k = 0; k < indexes.size(); k++) {
-					if (interval->getValue(indexes.at(k)) == '-') {
-						//int val = values.at(k) + (interval->getValue(indexes.at(k)) - '0');
-						values.at(k)++;
-					}
-				}
-			}
-		}
-	}
-
-	int minElementIndex = std::min_element(values.begin(), values.end()) - values.begin();
-
-	return indexes.at(minElementIndex);
+bool BoolEquation::SetBranchingStrategy(std::shared_ptr<BranchingStrategy> strategy)
+{
+    if(strategy) {
+        branchingStrategy = strategy;
+        return true;
+    }
+    return false;
 }

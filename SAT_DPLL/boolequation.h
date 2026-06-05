@@ -2,6 +2,8 @@
 #define BOOLEQUATION_H
 
 #include "boolinterval.h"
+#include "BranchingStrategy.h"
+#include <memory>
 
 class BoolEquation
 {
@@ -11,6 +13,7 @@ public:
 	int cnfSize; // Размер КНФ
 	int count; //количество дизъюнкций
 	BBV mask; //маска для столбцов
+
 	BoolEquation(BoolInterval **cnf, BoolInterval *root, int cnfSize, int count, BBV mask);
 	BoolEquation(BoolEquation &equation);
 	int CheckRules();
@@ -21,6 +24,9 @@ public:
 	bool Rule5Col1(BBV vector);
 	void Simplify(int ixCol, char value);
 	int ChooseColForBranching();
+
+    std::shared_ptr<BranchingStrategy> branchingStrategy;
+    bool SetBranchingStrategy(std::shared_ptr<BranchingStrategy> strategy);
 };
 
 #endif // BOOLEQUATION_H
